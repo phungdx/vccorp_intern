@@ -1,17 +1,17 @@
 
 def sortStack(stack):
-    # Khởi tạo một stack tạm thời
+    # Initialize a temporary stack
     tempStack = []
     while len(stack) > 0:
-        # Lấy và xóa phần tử ở đỉnh stack input
+        # Get and Pop the top value in stack input
         temp = stack.pop()
 
-        # Kiểm tra nếu phần tử ở đỉnh stack tạm lớn hơn temp 
-        # thì chuyển phần tử đó sang stack input
+        # whether or not the top value in temp stack greater than the top value in stack input
+        # if yes then move it to the stack input
         while (len(tempStack) > 0) and (temp < tempStack[-1]):
             stack.append(tempStack.pop())
 
-        # Thêm vào stack tạm phần tử temp
+        # Push the top value in stack input to the temp stack
         tempStack.append(temp)
     return tempStack
 
