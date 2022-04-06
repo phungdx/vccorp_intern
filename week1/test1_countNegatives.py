@@ -19,6 +19,13 @@ def countNegative_1(M):
 
 
 # Solution 2: O(n+m) Using Binary Search
+"""
+Vì tính chất của matrix là các giá trị được sort từ trái -> phải, từ trên -> dưới
+Dùng Binary Search để tìm kiếm vị trí của số âm ở bên phải cùng (righmost) của từng hàng.
+Thì suy ra các giá trị của bên trái của nó cũng đều là các giá trị âm.
+
+
+"""
 def getLastNegativeIndex(array, start, end, n):
 	
 	# Base case
@@ -47,9 +54,9 @@ def getLastNegativeIndex(array, start, end, n):
 
 
 def countNegative_2(M):
-    n = len(M)
-    m = len(M[0])
-    count = 0
+    n = len(M) # số hàng
+    m = len(M[0]) # số cột
+    count = 0 # biến đếm
 
     for i in range(n):
         nextEnd = m - 1
