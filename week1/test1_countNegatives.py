@@ -1,7 +1,7 @@
 # Solution 1: O(n*m)
 def countNegative_1(M):
 	"""
-	Lặp từng dòng kiểm tra từng phần tử mỗi hàng, nếu âm thì tăng biến count lên 1
+	Lặp từng hàng kiểm tra từng phần tử mỗi hàng, nếu âm thì tăng biến count lên 1
 	"""
 	n = len(M) # số hàng
 	m = len(M[0]) # số cột
