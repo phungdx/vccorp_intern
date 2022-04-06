@@ -21,55 +21,59 @@ def countNegative_1(M):
 # Solution 2: O(n+m) Using Binary Search
 """
 Vì tính chất của matrix là các giá trị được sort từ trái -> phải, từ trên -> dưới
-Dùng Binary Search để tìm kiếm vị trí của số âm ở bên phải cùng (righmost) của từng hàng.
+Dùng Binary Search để tìm kiếm vị trí của số âm ở bên phải cùng (righmost negative - phần tử sau nó sẽ không âm) của từng hàng.
 Thì suy ra các giá trị của bên trái của nó cũng đều là các giá trị âm.
-
-
 """
-def getLastNegativeIndex(array, start, end, n):
+def getLastNegativeIndex(array, start, end, m):
 	
-	# Base case
+	# Trường hợp cơ cở
 	if (start == end):
 		return start
 		
-	# Get the mid for binary search
+	# Lấy chỉ số giữa mảng
 	mid = start + (end - start) // 2
 	
-	# If current element is negative
+	# Nếu phần tử đó âm
 	if (array[mid] < 0):
 		
-		# If it is the rightmost negative
-		# element in the current row
-		if (mid + 1 < n and array[mid + 1] >= 0):
+		# Kiểm tra xem nó có phải phần tử âm phải cùng không (phần tử sau nó sẽ không âm).
+		if (mid + 1 < m and array[mid + 1] >= 0):
 			
 			return mid
 		
-		# Check in the right half of the array
-		return getLastNegativeIndex(array, mid + 1, end, n)
+		# Nếu không thì tìm vị trí giá trị âm phải cùng bên phải số nằm giữa.
+		return getLastNegativeIndex(array, mid + 1, end, m)
 	
 	else:
 		
-		# Check in the left half of the array
-		return getLastNegativeIndex(array, start, mid - 1, n)
+		# Nếu số giữa không âm thì tìm vị trí giá trị âm phải cùng bên trái của nó.
+		return getLastNegativeIndex(array, start, mid - 1, m)
 
 
 def countNegative_2(M):
-    n = len(M) # số hàng
-    m = len(M[0]) # số cột
-    count = 0 # biến đếm
+	n = len(M) 
+	m = len(M[0])
+	count = 0
 
-    for i in range(n):
-        nextEnd = m - 1
-        if M[i][0] >= 0:
-            break
+	lastNegIndex = m-1
 
-        nextEnd = getLastNegativeIndex(M[i], 0, nextEnd, m)
-        count += (nextEnd + 1)
+	for i in range(n):
+		# Nếu phần tử đầu hàng mà dương thì không cần tìm kiếm hàng đó nữa
+		if M[i][0] > 0:
+			break
 
-    return count
+		# Lấy vị trí phần tử âm phải cùng
+		# Các hàng sau sẽ tìm trong khoảng (0, lastNegIndex) vì các giá trị bên phải của lastNegIndex đều dương,
+		# nên các giá trị tương ứng bên dưới của nó cũng dương, tiết kiệm thời gian tìm kiếm.
+		lastNegIndex = getLastNegativeIndex(M[i], 0, lastNegIndex, m)
+
+		# Vì các giá trị bên trái của phần tử âm phải cùng đều âm nên ta lấy được số lượng các số âm mỗi hàng
+		count += (lastNegIndex + 1)
+
+	return count
 
         
 if __name__ == '__main__':
-	M = [[-3, -2, 1], [-2,2,3],[-1,3,5]]
+	M = [[-3, -2, -1], [-2,2,3],[-1,3,5]]
 	print(countNegative_1(M))
 	print(countNegative_2(M))
