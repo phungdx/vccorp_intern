@@ -20,8 +20,8 @@ def countNegative_1(M):
 
 # Solution 2: O(n+m) Using Binary Search
 """
-Vì tính chất của matrix là các giá trị được sort từ trái -> phải, từ trên -> dưới
-Dùng Binary Search để tìm kiếm vị trí của số âm ở bên phải cùng (righmost negative - phần tử sau nó sẽ không âm) của từng hàng.
+Vì tính chất của matrix trong bài toán là các giá trị được sort từ trái -> phải, từ trên -> dưới
+Dùng Binary Search để tìm kiếm vị trí của số âm phải cùng (righmost negative - phần tử sau nó sẽ không âm) của từng hàng.
 Thì suy ra các giá trị của bên trái của nó cũng đều là các giá trị âm.
 """
 def getLastNegativeIndex(array, start, end, m):
