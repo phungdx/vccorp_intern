@@ -14,7 +14,7 @@ B2: Loop qua từng phần tử mảng đầu vào:
 
 B3: Loop qua từng phân tử mảng arr:
     - Nếu phần tử nào có giá trị bằng 0 thì chính là phần tử đang bị thiếu
-    - Nếu không có phần tử nào bằng 0 thì phần tử bị thiếu chính là N + 1
+    - Nếu không có phần tử nào bằng 0 thì chứng tỏ mảng input đã có đủ các phần tử trong khoảng [1, N] --> phần tử bị thiếu là N+1
 
 """
 
