@@ -1,12 +1,18 @@
 # Solution 1: O(n*m)
 def countNegative_1(M):
-	n = len(M)
-	m = len(M[0])
+	"""
+	Lặp từng dòng kiểm tra từng phần tử mỗi hàng, nếu âm thì tăng biến count lên 1
+	"""
+	n = len(M) # số hàng
+	m = len(M[0]) # số cột
 
-	count = 0
+	count = 0 # biến đếm
 	for i in range(n):
+		# Loop từng hàng
 		for j in range(m):
+			# Loop từng cột
 			if M[i][j] < 0:
+				# Nếu âm thì thỏa mãn
 				count += 1
 	return count
 
