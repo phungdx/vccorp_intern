@@ -33,7 +33,7 @@ def getLastNegativeIndex(array, start, end, m):
 	# Lấy chỉ số giữa mảng
 	mid = start + (end - start) // 2
 	
-	# Nếu phần tử đó âm
+	# Nếu phần tử giữa âm
 	if (array[mid] < 0):
 		
 		# Kiểm tra xem nó có phải phần tử âm phải cùng không (phần tử sau nó sẽ không âm).
