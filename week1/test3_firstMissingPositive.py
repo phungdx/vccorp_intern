@@ -5,8 +5,8 @@ B1: Tạo một mảng để đánh dấu arr, độ dài mảng arr bằng mả
     xem mảng đầu vào có tồn tại đầy đủ các số từ [1->N] không. Dựa vào tính chất nêu ra ở trên, 
     
              VD : mảng input: [1, 10, 4, 3, 6, 5, 7, 8] --> các giá trị thỏa mãn sẽ nằm trong đoạn [1, 8]
-    sau cùng ta sẽ có   arr = [1 , 0, 1, 1, 1, 1, 1, 1]
-    Vì giá trị tại phần tử thứ 2 bằng 0 nên số dương nhỏ nhất còn thiếu là 2.
+            sau cùng ta sẽ có   arr = [1 , 0, 1, 1, 1, 1, 1, 1]
+            Vì giá trị tại phần tử thứ 2 bằng 0 nên số dương nhỏ nhất còn thiếu là 2.
 
 B2: Loop qua từng phần tử mảng đầu vào:
     - Nếu phần tử đó nằm trong đoạn [1, N] thì sẽ tăng giá trị tương ứng trong mảng arr lên 1

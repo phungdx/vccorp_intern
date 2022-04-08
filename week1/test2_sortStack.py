@@ -2,11 +2,12 @@
 B1: Khởi tạo một stack tạm thời
 B2: Lặp đến khi stack input rỗng:
     - Lưu lại và xóa giá trị đỉnh stack input, gọi là temp.
-    - Kiểm tra xem giá trị đỉnh của stack tạm, gọi là tempStack và giá trị đỉnh temp vừa lấy,
+    - Kiểm tra xem giá trị đỉnh của stack tạm, gọi là tempStack và giá trị đỉnh temp của stack input vừa lấy,
         nếu tempStack > temp thì chuyển tempStack sang stack input, lặp lại đến khi giá trị
         ở đỉnh temp tạm không lớn hơn temp nữa.
 
     - Chuyển giá trị temp vào đỉnh temp tạm.
+- Cuối cùng ta nhận được một stack mới với giá trị được sắp xếp.
 """
 def sortStack(stack):
     # Khởi tạo một stack tạm
