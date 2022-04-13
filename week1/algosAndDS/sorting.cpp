@@ -1,6 +1,9 @@
 #include<iostream>
 using namespace std;
 
+/*
+BUBBLE SORT
+*/
 void bubbleSort(int *arr, int n){
     bool isSwapped;
     for(int i = 0; i < n; ++i){
@@ -18,6 +21,9 @@ void bubbleSort(int *arr, int n){
     }
 }
 
+/*
+SELECTION SORT
+*/
 void selectionSort(int arr[], int n){
     int minIndex;
     for(int i = 0; i < n; ++i){
@@ -31,6 +37,9 @@ void selectionSort(int arr[], int n){
     }
 }
 
+/*
+INSERTION SORT
+*/
 void insertionSort(int arr[], int n){
     int min, j;
     for(int i = 0; i < n; ++i){
@@ -44,11 +53,16 @@ void insertionSort(int arr[], int n){
     }
 }
 
-
+/*
+MERGE SORT
+*/
 // void mergeSort(int arr[], int n){
 
 // }
 
+/*
+QUICK SORT
+*/
 int partition(int arr[],int left, int right){
     int pivot = arr[right];
     int i = left - 1;
@@ -72,6 +86,10 @@ void quickSort(int arr[], int left, int right){
     quickSort(arr, index_pivot + 1, right);
 }
 
+
+/*
+HEAP SORT
+*/
 // void heapSort(int arr[], int n){
 
 // }
