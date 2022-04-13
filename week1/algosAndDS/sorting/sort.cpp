@@ -1,5 +1,4 @@
 #include<iostream>
-#include "sort.h"
 using namespace std;
 
 /*
@@ -57,9 +56,71 @@ void insertionSort(int arr[], int n){
 /*
 MERGE SORT
 */
-// void mergeSort(int arr[], int n){
 
-// }
+// Gộp hai mảng con arr[left...mid] và arr[mid+1..right]
+void merge(int arr[], int left, int mid, int right){
+    int i, j, k;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    /* Tạo các mảng tạm */
+    int L[n1], R[n2];
+
+    /* Copy dữ liệu sang các mảng tạm */
+    for(i = 0; i < n1; ++i){
+        L[i] = arr[left + i];
+    }
+
+    for(j = 0; j < n2; ++j){
+        R[j] = arr[mid + 1 + j];
+    }
+
+    /* Gộp hai mảng tạm vừa rồi vào mảng arr*/
+    i = 0; // Khởi tạo chỉ số bắt đầu của mảng con đầu tiên
+    j = 0; // Khởi tạo chỉ số bắt đầu của mảng con thứ hai
+    k = left; // IKhởi tạo chỉ số bắt đầu của mảng lưu kết quả
+
+    while(i < n1 & j < n2){
+        if(L[i] <= R[j]){
+            arr[k] = L[i];
+            ++i;
+        }
+
+        else{
+            arr[k] = R[j];
+            ++j;
+        }
+
+        ++k;
+    }
+
+    /* Copy các phần tử còn lại của mảng L vào arr nếu có */
+    while(i < n1){
+        arr[k] = L[i];
+        ++i;
+        ++k;
+    }
+
+    /* Copy các phần tử còn lại của mảng R vào arr nếu có */
+    while(j < n2){
+        arr[k] = R[j];
+        ++j;
+        ++k;
+    }
+}
+
+void mergeSort(int arr[], int left, int right){
+    if(left >= right){
+        return;
+    }
+
+    int mid = left + (right - left) / 2;
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+    merge(arr, left, mid, right);
+}
+
+
 
 /*
 QUICK SORT
@@ -77,6 +138,7 @@ int partition(int arr[],int left, int right){
 
     return i + 1;
 }
+
 
 void quickSort(int arr[], int left, int right){
     if(left > right){
@@ -98,7 +160,7 @@ HEAP SORT
 int main(){
     int arr[] = {7,5,6,4,3,2,1,9,8};
     int n = sizeof(arr) / sizeof(arr[0]);
-    quickSort(arr, 0, n-1);
+    mergeSort(arr, 0, n-1);
 
     for (auto item: arr)
 	{
