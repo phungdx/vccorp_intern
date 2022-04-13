@@ -1,4 +1,5 @@
 #include<iostream>
+#include "sort.h"
 using namespace std;
 
 /*
@@ -94,13 +95,12 @@ HEAP SORT
 
 // }
 
-
 int main(){
     int arr[] = {7,5,6,4,3,2,1,9,8};
     int n = sizeof(arr) / sizeof(arr[0]);
     quickSort(arr, 0, n-1);
 
-    for (auto item: arr) // compiler tự dộng xác định kiểu cho item
+    for (auto item: arr)
 	{
 		cout << item << " ";
 	}
