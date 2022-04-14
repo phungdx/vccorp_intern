@@ -1,5 +1,7 @@
 #include<iostream>
+#include<vector>
 using namespace std;
+
 
 /*
 Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] 
@@ -20,6 +22,11 @@ Example 3:
 Input: nums = [0]
 Output: []
 */
+
+vector<vector<int>> threeSum(vector<int>& nums){
+    
+}
+
 
 int main(){
     

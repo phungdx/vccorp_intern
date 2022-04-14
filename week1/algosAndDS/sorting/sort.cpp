@@ -153,14 +153,58 @@ void quickSort(int arr[], int left, int right){
 /*
 HEAP SORT
 */
-// void heapSort(int arr[], int n){
 
-// }
+void heapify(int arr[], int n, int i)
+{
+	int largest = i; // Khởi tạo largest như là root
+	int l = 2 * i + 1; // left = 2*i + 1 (con trái)
+	int r = 2 * i + 2; // right = 2*i + 2 (con phải)
+
+	// Nếu nút con trái lớn hơn root
+	if (l < n && arr[l] > arr[largest])
+		largest = l;
+
+	// Nếu nút con phải lớn hơn root
+	if (r < n && arr[r] > arr[largest])
+		largest = r;
+
+	// Nếu root không phải là lớn nhất
+	if (largest != i)
+	{
+        // Đổi chỗ cho phần tử lớn nhất làm cha
+		swap(arr[i], arr[largest]);
+
+		// Đệ quy lại hàm heapify để vun các node phía dưới node vừa swap
+		heapify(arr, n, largest);
+	}
+}
+
+// Hàm heap sort
+void heapSort(int arr[], int n)
+{
+	// Tạo một heap (Sắp xếp lại mảng từ dưới lên) từ nút cha cuối cùng (last parent) có index = (n / 2 - 1)
+	for (int i = n / 2 - 1; i >= 0; --i){
+		heapify(arr, n, i);
+    }
+	// Trích xuất từng phần tử một từ heap
+	for (int i = n - 1; i >= 0; --i)
+	{
+		// Di chuyển root về cuối cùng
+		swap(arr[0], arr[i]);
+
+		// Gọi hàm heapify
+		heapify(arr, i, 0);
+	}
+}
+
+
+
 
 int main(){
     int arr[] = {7,5,6,4,3,2,1,9,8};
     int n = sizeof(arr) / sizeof(arr[0]);
-    mergeSort(arr, 0, n-1);
+    // mergeSort(arr, 0, n-1);
+    heapSort(arr,n);
 
     for (auto item: arr)
 	{
