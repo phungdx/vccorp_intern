@@ -104,6 +104,7 @@ void merge(int arr[], int left, int mid, int right){
     j = 0; // Khởi tạo chỉ số bắt đầu của mảng con thứ hai
     k = left; // IKhởi tạo chỉ số bắt đầu của mảng lưu kết quả
 
+    // Ghép hai mảng theo thứ tự
     while(i < n1 & j < n2){
         if(L[i] <= R[j]){
             arr[k] = L[i];
@@ -138,9 +139,16 @@ void mergeSort(int arr[], int left, int right){
         return;
     }
 
+    // Lấy phần tử nằm giữa
     int mid = left + (right - left) / 2;
+
+    // Sort nửa trái
     mergeSort(arr, left, mid);
+
+    // Sort nửa phải
     mergeSort(arr, mid + 1, right);
+    
+    // Ghép 2 nửa lại theo order
     merge(arr, left, mid, right);
 }
 
