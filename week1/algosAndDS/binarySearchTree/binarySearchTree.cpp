@@ -67,11 +67,11 @@ class bst{
         void traverse_DFS_LRD(Node* root);
         void traverse_depth_order(string type);
 
-        // void delete_(Node*& root, int data);
-        // void deleteNode(int data);
+        void delete_(Node*& root, int data);
+        void deleteNode(int data);
 
-        // void delete__(Node*& root);
-        // void deleteTree();
+        void delete__(Node*& root);
+        void deleteTree();
 };
 
 
@@ -220,19 +220,63 @@ int bst::minData(Node* root){
         return -1;
     }
     // Iterative solution
-    Node* temp = root;
-    while(temp != NULL){
-        temp = temp->left;
-    }
-    return temp->data;
+    // Node* temp = root;
+    // while(temp->left != NULL){
+    //     temp = temp->left;
+    // }
+    // return temp->data;
+
 
     // Recursive solution
+    if(root->left == NULL){
+        return root->data;
+    }
+    return minData(root->left);
+
+
+
 }
 
 
 int bst::findMin(){
     return minData(root);
 }
+
+
+int bst::maxData(Node* root){
+    if(root == NULL){
+        cout << "Tree is empty\n";
+        return -1;
+    }
+    // Iterative solution
+    // Node* temp = root;
+    // while(temp->right != NULL){
+    //     temp = temp->right;
+    // }
+    // return temp->data;
+
+
+    // Recursive solution
+    if(root->right == NULL){
+        return root->data;
+    }
+    return maxData(root->right);
+
+
+
+}
+
+
+int bst::findMax(){
+    return maxData(root);
+}
+
+void
+
+
+
+
+
 
 int main(){
     bst tree;
@@ -247,5 +291,6 @@ int main(){
     tree.traverse_level_order();
     cout << "Height:" << tree.getHeight() <<'\n';
     cout << "Min:" << tree.findMin() << '\n';
+    cout << "Max:" << tree.findMax() << '\n';
     return 0;
 }
