@@ -271,11 +271,65 @@ int bst::findMax(){
     return maxData(root);
 }
 
-void
+
+void bst::delete_(Node*& root, int data){
+    if(root == NULL) return;
+
+    if(root->data == data){
+        // Node cần xóa ko có child nào
+        if(root->left == NULL && root->right == NULL){
+            delete root;
+            root = NULL;
+        }
+
+        // Node cần xóa có 1 con trái
+        else if(root->left != NULL && root->right == NULL){
+            Node* temp = root;
+            root = root->left;
+            delete temp;
+        }
+
+        // node cần xóa có 1 con phải
+        else if(root->left == NULL && root->right != NULL){
+            Node* temp = root;
+            root = root->right;
+            delete temp;
+        }
+
+        // Node cần xóa có 2 con
+        else{
+            // Tìm giá trị nhỏ nhất bên phải của root
+            // để thay thế cho giá trị hiện tại của root
+            // Hoặc có thể thay bằng giá trị lớn nhất bên trái của root
+            int min_right_subtree = minData(root->right);
+            root->data = min_right_subtree;
+
+            // Sau khi thay thế xong thì xóa cái giá trị dùng để thay thế đi
+            delete_(root->right, min_right_subtree);
+        }
+    }
+    else if(root->data > data) delete_(root->left, data);
+    else delete_(root->right, data);
 
 
+}
+
+void bst::deleteNode(int data){
+    delete_(root, data);
+}
+
+void bst::delete__(Node*& root){
+    if(root == NULL) return;
+    delete__(root->left);
+    delete__(root->right);
+    delete root;
+    root = NULL;
+}
 
 
+void bst:: deleteTree(){
+    delete__(root);
+}
 
 
 int main(){
@@ -287,10 +341,13 @@ int main(){
     tree.insertNode(8);
     tree.insertNode(12);
     tree.insertNode(11);
+    tree.deleteNode(10);
 
     tree.traverse_level_order();
     cout << "Height:" << tree.getHeight() <<'\n';
     cout << "Min:" << tree.findMin() << '\n';
     cout << "Max:" << tree.findMax() << '\n';
+    tree.deleteTree();
+    tree.traverse_level_order();
     return 0;
 }
