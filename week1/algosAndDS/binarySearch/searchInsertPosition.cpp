@@ -38,7 +38,7 @@ Output: -1
 // Trường hợp target không có trong mảng thì cần return chỉ số index hợp lý
 // của nó nếu chèn nó vào mảng
 // Nếu target không có trong mảng thì ở bước xét cuối cùng có chỉ số low == mid == high
-// ta tiếp tục qua trình tính toán thì lúc này low > high, ta nhận thấy low luôn chỉ vào vị trí của số
+// ta tiếp tục qúa trình tính toán thì lúc này low > high, ta nhận thấy low luôn chỉ vào vị trí của số
 // mà ta cần tìm trong mọi trường hợp (dù cho target có lớn hơn nums[mid] hay nhỏ hơn nums[mid]),
 // vì vậy trong trường hợp ko có target trong mảng thì giá trị cuối cùng của low chính là
 // vị trí của số mới mà ta chèn vào.
