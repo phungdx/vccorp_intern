@@ -48,11 +48,19 @@ int searchInsert(vector<int>& nums, int target) {
     int high = nums.size() - 1;
     int mid;
     while(low <= high){
+        // Tìm vị trí giữa đoạn
         mid = low + (high - low)/2;
+
+        // Nếu sô giữa bằng target thì return index của nó
         if(nums[mid] == target) return mid;
+
+        // nếu số giữa lớn hơn target -> target có thể nằm ở đoạn bên trái số giữa
         else if(nums[mid] > target) high = mid - 1;
+
+        // nếu số giữa nhỏ hơn target -> target có thể nằm ở đoạn bên phải số giữa
         else low = mid + 1;
     }
+    // trường hợp ko có target trong mảng --> return vị trí của nó nếu đc thêm vào
     return low;
 }
 
