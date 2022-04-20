@@ -30,24 +30,25 @@ void Trie::insert(std::string data) // thêm word vào trie
 
 
 // nạp chồng với hàm print_tree bên dưới, gọi đệ quy để in ra tất cả các gợi ý
-void Trie::print_tree(Node *root, std::string data, std::string str) // method that prints query options to completing the prefix
+void Trie::print_tree(Node *root, std::string data, std::string str)
 {
-	for (int i = 0; i < 128; i++) // loops through all 128 pointers in node to check if there's a child
+	for (int i = 0; i < 128; i++) // lặp qua từng node con của node hiện tại
 	{
 		Node *adv = root;
-		if (adv->child[i] != NULL) // child exists
+		if (adv->child[i] != NULL) // nếu node con này tồn tại
 		{
-			adv = adv->child[i];   // advance pointer
-			str += adv->getChar(); // append char to end of prefix
-			if (adv->isWord())	   // if point at end of word, print word
+			adv = adv->child[i];   // mở rộng con trỏ xuống node mới
+			str += adv->getChar(); // thêm kí tự mới vào prefix
+			if (adv->isWord())	   // nếu node này là kết thúc 1 từ
 			{
-				if (this->getSpace() == true) // if the user's search query contained a space, print the search query minus prefix then print word
-					std::cout << this->getNo_prefix();
-				std::cout << str << std::endl;
+				// nếu input user có dấu cách
+				if (this->getSpace() == true)
+					std::cout << this->getNo_prefix(); // in phần đã hoàn thiện của input user
+				std::cout << str << std::endl; // in ra phần prefix đã được mở rộng
 			}
-			print_tree(adv, str); // recursive call to keep moving down tree
+			print_tree(adv, str); // gọi hàm nạp chồng cho node hiện tại và prefix hiện tại
 		}
-		str = data; // reset prefix string
+		str = data; // đặt lại về prefix ban đầu
 	}
 }
 
@@ -61,19 +62,19 @@ void Trie::print_tree(Node *root, std::string str)
 	for (int i = 0; i < 128; i++)
 	{
 		Node *adv = root;
-		if (adv->child[i] != NULL)
+		if (adv->child[i] != NULL) // nếu node con này tồn tại
 		{
-			adv = adv->child[i];
-			str += adv->getChar();
-			if (adv->isWord())
+			adv = adv->child[i]; // mở rộng con trỏ xuống node mới
+			str += adv->getChar(); // thêm kí tự mới vào prefix
+			if (adv->isWord())  // nếu node này là kết thúc 1 từ
 			{
 				if (this->getSpace() == true)
-					std::cout << this->no_prefix;
-				std::cout << str << std::endl;
+					std::cout << this->no_prefix; // in phần đã hoàn thiện của input user
+				std::cout << str << std::endl; // in ra phần prefix đã được mở rộng
 			}
-			print_tree(adv, str);
+			print_tree(adv, str); // gọi đệ quy cho node hiện tại và prefix hiện tại
 		}
-		str = str_tmp;
+		str = str_tmp; // reset về prefix ban đầu
 	}
 }
 
