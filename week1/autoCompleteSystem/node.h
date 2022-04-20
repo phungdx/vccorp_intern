@@ -10,7 +10,7 @@ class Node
 {
 	friend class Trie;
 private:
-	char c; // kí tự trong mà node biểu thị
+	char c; // kí tự mà node biểu thị
 	bool isEnd; // đánh dấu node kết thúc 1 từ.
 	Node* child[128]; //chỉ vào các node con; mỗi node con là 1 kí tự trong bảng ASCII (0-127)
 public:
