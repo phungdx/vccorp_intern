@@ -11,32 +11,34 @@ int main(int argc, char const *argv[])
 	std::fstream dictionary;
 	Trie complete_query;
 
-	dictionary.open("dictionary.txt", std::fstream::out); //read dictionary file into trie tree structure
+	dictionary.open("dictionary.txt", std::fstream::in); // mở file data
 	if (dictionary.is_open())
 	{	
 		while (dictionary)
 		{
-			dictionary >> data;
-			complete_query.insert(data);
+			dictionary >> data; // đọc dữ liệu từng dòng vào biến data
+			complete_query.insert(data); // insert data vào trie
 		}
-	}	
+	}
 	else
 	{
 		std::cout << "error:  file not open." << std::endl;
 		return -1;
 	}
 	dictionary.close();
-	data.clear(); //clear string variable used for file input; string variable will read in user input
+	data.clear(); // xóa dữ liệu để lưu data do user nhập vào
 	std::cout << "enter search query:" << std::endl;
-	std::getline(std::cin, data); //getline used over std::cin to catch spaces
-	complete_query.is_space(data); //checks whether there's a space in user query
+	std::getline(std::cin, data);
+	complete_query.is_space(data); // kiểm tra có space trong input của user
 	std::cout << "your search options are:  " << std::endl;
-	if (complete_query.getSpace() == true) //if a space exists, remove prefix and pass prefix only to search method
+	if (complete_query.getSpace() == true) // kiểm tra input có dấu cách (nhiều hơn 1 word)
 	{
-		complete_query.remove_prefix(data);
+		complete_query.remove_prefix(data); // lấy phần đã hoàn thiện trong input lưu vào thuộc tính no_prefix
+
+		// tìm kiếm với phần prefix trong input (break_string() thực hiện trả phần prefix trong input)
 		complete_query.search(complete_query.break_string(data));
 	}
-	else //if no method exists, pass user's query to search method to auto-complete the query
+	else // nếu không có dấu cách thì pass thằng input vào để search
 		complete_query.search(data);
 	return 0;
 } 	
