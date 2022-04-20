@@ -2,4 +2,4 @@ data/
 .ipynb_checkpoints
 venv/
 *.exe
-Query-prefix-auto-complete/
+*.o
