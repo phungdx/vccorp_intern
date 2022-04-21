@@ -53,26 +53,32 @@ public:
         for(; index < size; ++index){
             // nếu kí tự đó là '.'
             if(word[index] == '.'){
-                // kiểm tra node con nào phù hợp (node nào cũng đc vì '.' match với mọi kí tự)
+                // kiểm tra node con nào tồn tại (node nào cũng đc vì '.' match với mọi kí tự)
                 for(auto ch: curr->child){
+                    // kiểm tra node con nào tồn tại (node nào cũng đc vì '.' match với mọi kí tự)
+                    // tiếp tục gọi đệ quy
                     if(ch && find(word, index + 1, ch)){
                         return true;
                     }
                 }
                 return false;
             }
+            // nếu kí tự hiện tại không phải '.' và tồn tại node con, chuyển trỏ sang con node con
             else if(curr->child[word[index]-'a']){
                 curr=curr->child[word[index]-'a'];
             }
+
             else{
                 return 0;
             }
         }
+        // nếu node con hiện tại có phải kết thúc từ không
         return curr->isEnd;
     }
 
 
     bool search(string word){
+        // gọi hàm find bắt đầu tìm từ kí tự đầu
         return find(word,0,root);
     }
 };

@@ -12,61 +12,44 @@ using namespace std;
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
 
+
 // Solution 1: using recursive
 bool isSameTree_recursive(TreeNode *p, TreeNode *q){
-    if(p == nullptr && q == nullptr) return true;
-    if(p == nullptr || q == nullptr) return false;
-    if(p->val != q->val) return false;
+    if(p == nullptr && q == nullptr) return true; // nếu 2 node đang xét cùng null thì return true
+    if(p == nullptr || q == nullptr) return false; // nếu 1 trong 2 node null thì trả về false
+    if(p->val != q->val) return false; // nếu 2 giá trị trong 2 node khác nhau thì trả về null
+
+    // gọi đệ quy với các node bên trái và bên phải 2 node hiện tại
     return isSameTree_recursive(p->left, q->left) && isSameTree_recursive(p->right, q->right);
 }
 
 
 // Solution 2: using iterative
 
-bool check(TreeNode *p, TreeNode *q){
-    if(p == nullptr && q == nullptr) return true;
-    if(p == nullptr || q == nullptr) return false;
-    if(p->val != q->val) return false;
-    return true;
-}
+// check tính hợp lệ của 2 trees
+// sử dụng 1 hàng đợi để check lần lượt 2 node liền kề
+bool isSameTree_iterative(TreeNode* p, TreeNode* q) {
+    queue<TreeNode *> queue; // khởi tạo queue
+    queue.push(p); // thêm 1 node đang xét
+    queue.push(q); // thêm node còn lại
+    while (queue.size()!=0){ // lặp đến khi queue rỗng
+        TreeNode * q2=queue.front(); // 
+        queue.pop();
+        TreeNode * q1=queue.front();
+        queue.pop();
+        if (q1==nullptr && q2==nullptr) continue; // nếu 2 node đang xét cùng null thì return true
+        if (q1==nullptr || q2==nullptr) return false; // nếu 1 trong 2 node null thì trả về false
+        if (q1->val!=q2->val) return false; // nếu 2 giá trị trong 2 node khác nhau thì trả về null
 
-
-bool isSameTree_iterative(TreeNode *p, TreeNode *q){
-    if(p == nullptr && q == nullptr) return true;
-    if(!check(p,q)) return false;
-
-    // khởi tạo 2 hàng đợi
-    queue<TreeNode*> Queue_P;
-    queue<TreeNode*> Queue_Q;
-    Queue_P.push(p);
-    Queue_Q.push(q);
-
-    while(!Queue_P.empty()){
-        p = Queue_P.front();
-        Queue_P.pop();
-        q = Queue_Q.front();
-        Queue_Q.pop();
-
-        if(!check(p,q)) return false;
-        if(p != nullptr){
-            if(!check(q->left, q->left)) return false;
-            if(p->left != nullptr){
-                Queue_P.push(p->left);
-                Queue_Q.push(q->left);
-            }
-
-            if(!check(p->right, q->right)) return false;
-            if(p->right != nullptr){
-                Queue_P.push(p->right);
-                Queue_Q.push(q->right);
-            }
-
-        }
-
-
+        // thêm các node bên trái và bên phải của 2 node hiện tại
+        queue.push(q1->left);
+        queue.push(q2->left);
+        queue.push(q1->right);
+        queue.push(q2->right);
     }
     return true;
 }
+
 
 int main(){
     return 0;
