@@ -1,139 +1,71 @@
 #include<iostream>
-using namespace std;
+#include<algorithm>
 
+/**
+ * một interface chứa các chức năng được sử dụng bởi Client (domain specific).
+ */
+class Target {
+ public:
+  virtual ~Target() = default;
 
-/*
-Trong ví dụ này:
-UI đang làm việc với backend A thì chuyển sang làm việc với backend B
-Backend B thì sử lý tên người dùng theo first và last name
-còn backend A thì sử lý chung trong 1 string name
-Tạo adapter để không cần phải sửa UI và backend B sao cho
-chúng có thể làm việc với nhau.
-
-*/
-
-
-// Interface mà Back-end A quy định cho đối tượng user
-class BackendAUserInterface
-{
-public:
-    virtual void setName(std::string name) = 0;
-    virtual std::string getName() = 0;
+  virtual std::string Request() const {
+    return "Target: The default target's behavior.";
+  }
 };
 
-// Class User hiện tại đang implement BackendAUserInterface như sau
-class User : public BackendAUserInterface 
-{
-private:
-    std::string mName;
-
-public:
-    void setName(std::string name)
-    {
-        mName = name;
-    }
-
-    std::string getName()
-    {
-        return mName;
-    }
+/**
+ * định nghĩa interface không tương thích, cần được tích hợp vào.
+ */
+class Adaptee {
+ public:
+  std::string SpecificRequest() const {
+    return ".eetpadA eht fo roivaheb laicepS";
+  }
 };
 
+/**
+ * lớp tích hợp, giúp interface không tương thích tích hợp được với interface đang làm việc.
+ * Thực hiện việc chuyển đổi interface cho Adaptee và kết nối Adaptee với Client.
+ */
+class Adapter : public Target {
+ private:
+  Adaptee *adaptee_;
 
-// Interface mà Back-end B quy định cho đối tượng user
-class BackendBUserInterface
-{
-public:
-    virtual void setFirstName(std::string firstName) = 0;
-    virtual void setLastName(std::string lastName) = 0;
-    virtual std::string getFirstName() = 0;
-    virtual std::string getLastName() = 0;
+ public:
+  Adapter(Adaptee *adaptee) : adaptee_(adaptee) {}
+
+  // chuyển đổi cho tương thích
+  std::string Request() const override {
+    std::string to_reverse = this->adaptee_->SpecificRequest();
+    std::reverse(to_reverse.begin(), to_reverse.end());
+    return "Adapter: (TRANSLATED) " + to_reverse;
+  }
 };
 
+/**
+ * lớp sử dụng các đối tượng có interface Target.
+ */
+void ClientCode(const Target *target) {
+  std::cout << target->Request();
+}
 
-// Giả sử có class UserB implement BackendBUserInterface như sau
-class UserB : public BackendBUserInterface
-{
-private:
-    std::string mFirstname;
-    std::string mLastname;
-public:
-    void setFirstName(std::string firstName)
-    {
-        mFirstname = firstName;
-    }
+int main() {
+  std::cout << "Client: I can work just fine with the Target objects:\n";
+  Target *target = new Target;
+  ClientCode(target);
+  std::cout << "\n\n";
+  Adaptee *adaptee = new Adaptee;
+  std::cout << "Client: The Adaptee class has a weird interface. See, I don't understand it:\n";
+  std::cout << "Adaptee: " << adaptee->SpecificRequest();
+  std::cout << "\n\n";
+  std::cout << "Client: But I can work with it via the Adapter:\n";
+  Adapter *adapter = new Adapter(adaptee);
+  ClientCode(adapter);
+  std::cout << "\n";
 
-    void setLastName(std::string lastName)
-    {
-        mLastname = lastName;
-    }
+  delete target;
+  delete adaptee;
+  delete adapter;
 
-    std::string getFirstName()
-    {
-        return mFirstname;
-    }
-
-    std::string getLastName()
-    {
-        return mLastname;
-    }
-};
-
-
-
-// Tạo adapter
-class UserAtoBAdapter : public BackendBUserInterface
-{
-private:
-    User mUser;
-    std::string mFirstname;
-    std::string mLastname;
-
-public:
-    UserAtoBAdapter(User user)
-    {
-        mUser = user;
-        
-        // tách first name và last name
-        unsigned int splitPostion = user.getName().find_first_of(" ");
-        if (splitPostion != string::npos)
-        {
-            mFirstname = user.getName().substr(0, splitPostion + 1);
-            mLastname = user.getName().substr(splitPostion + 1, user.getName().length() - mFirstname.length());
-        }
-    }
-
-    void setFirstName(std::string firstName)
-    {
-        mFirstname = firstName;
-    }
-
-    void setLastName(std::string lastName)
-    {
-        mLastname = lastName;
-    }
-
-    std::string getFirstName()
-    {
-        return mFirstname;
-    }
-
-    std::string getLastName()
-    {
-        return mLastname;
-    }
-};
-
-int main()
-{    
-    // tạo User object
-    User user;
-    user.setName("Phung Dao Xuan");
-
-    // tạo adapter
-    UserAtoBAdapter adapter(user);
-    cout << "First name: " << adapter.getFirstName() << endl;
-    cout << "Last name: " << adapter.getLastName() << endl;
-
-    return 0;
+  return 0;
 }
