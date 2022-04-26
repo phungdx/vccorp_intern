@@ -1,7 +1,7 @@
 #include<iostream>
 
 /**
- * Product interface khai báo 1 vài phương thức để các subclass của nó
+ * Product interface khai báo 1 phương thức để các subclass của nó
  * implement
  */
 
@@ -28,31 +28,23 @@ class ConcreteProduct2 : public Product {
 };
 
 /**
- * The Creator class declares the factory method that is supposed to return an
- * object of a Product class. The Creator's subclasses usually provide the
- * implementation of this method.
+ * Class Creator khai báo phương thức mà trả về 1 object của class product.
+ * Subclass của creator sẽ implement method này.
  */
 
 class Creator {
   /**
-   * Note that the Creator may also provide some default implementation of the
-   * factory method.
    */
  public:
   virtual ~Creator(){};
   virtual Product* FactoryMethod() const = 0;
   /**
-   * Also note that, despite its name, the Creator's primary responsibility is
-   * not creating products. Usually, it contains some core business logic that
-   * relies on Product objects, returned by the factory method. Subclasses can
-   * indirectly change that business logic by overriding the factory method and
-   * returning a different type of product from it.
    */
 
   std::string SomeOperation() const {
-    // Call the factory method to create a Product object.
+    // gọi factory method để tạo objec Product
     Product* product = this->FactoryMethod();
-    // Now, use the product.
+    // Sử dụng product
     std::string result = "Creator: The same creator's code has just worked with " + product->Operation();
     delete product;
     return result;
@@ -60,14 +52,9 @@ class Creator {
 };
 
 /**
- * Concrete Creators override the factory method in order to change the
- * resulting product's type.
  */
 class ConcreteCreator1 : public Creator {
   /**
-   * Note that the signature of the method still uses the abstract product type,
-   * even though the concrete product is actually returned from the method. This
-   * way the Creator can stay independent of concrete product classes.
    */
  public:
   Product* FactoryMethod() const override {
@@ -83,9 +70,7 @@ class ConcreteCreator2 : public Creator {
 };
 
 /**
- * The client code works with an instance of a concrete creator, albeit through
- * its base interface. As long as the client keeps working with the creator via
- * the base interface, you can pass it any creator's subclass.
+ * Client code hoạt động với 1 instance của một concrete creator,
  */
 void ClientCode(const Creator& creator) {
   // ...
