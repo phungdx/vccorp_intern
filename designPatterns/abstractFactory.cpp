@@ -6,7 +6,7 @@ using namespace std;
 */
 
 /**
- * Mỗi 1 product riêng biệt của 1 họ sản phẩm nên có 1 interface cơ sở riêng.
+ * Mỗi 1 product riêng biệt của 1 họ product nên có 1 interface cơ sở riêng.
  * Tất cả các biến thể của product phải implement interface này
  */
 class AbstractProductA {
@@ -112,7 +112,7 @@ class ConcreteFactory2 : public AbstractFactory {
 };
 
 /**
- * Client code hoạt động với factories và các products thông qua chỉ bởi các kiểu abstract
+ * Client code hoạt động với factories và các products chỉ thông qua bởi các kiểu abstract
  */
 void ClientCode(const AbstractFactory &factory) {
   const AbstractProductA *product_a = factory.CreateProductA();
