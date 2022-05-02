@@ -1,13 +1,18 @@
-text = "natural language processing and machine learning is fun and exciting"
+text1 = "natural language processing and machine learning is fun and exciting"
 
+text2 = ["This is a test message","taking the same Count Vectorizer matrix calculated earlier",
+   "replacing each cell of it by score for this term ","this is a from online document"]
 # Note the .lower() as upper and lowercase does not matter in our implementation
 # [['natural', 'language', 'processing', 'and', 'machine', 'learning', 'is', 'fun', 'and', 'exciting']]
-corpus = [[word.lower() for word in text.split()]]
+# corpus = [[word.lower() for word in text1.split()]]
+corpus  = []
+for sentence in text2:
+	corpus.append([word.lower() for word in sentence.split()])
 
 settings = {
 	'window_size': 2,	# context window +- center word
-	'n': 10,		# dimensions of word embeddings, also refer to size of hidden layer
-	'epochs': 50,		# number of training epochs
+	'n': 30,		# dimensions of word embeddings, also refer to size of hidden layer
+	'epochs': 300,		# number of training epochs
 	'learning_rate': 0.01	# learning rate
 }
 
@@ -147,10 +152,10 @@ class word2vec():
 		# Initialising weight matrices
 		# np.random.uniform(HIGH, LOW, OUTPUT_SHAPE)
 		# https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.random.uniform.html
-		self.w1 = np.array(getW1)
-		self.w2 = np.array(getW2)
-		# self.w1 = np.random.uniform(-1, 1, (self.v_count, self.n))
-		# self.w2 = np.random.uniform(-1, 1, (self.n, self.v_count))
+		# self.w1 = np.array(getW1)
+		# self.w2 = np.array(getW2)
+		self.w1 = np.random.uniform(-1, 1, (self.v_count, self.n))
+		self.w2 = np.random.uniform(-1, 1, (self.n, self.v_count))
 		
 		# Cycle through each epoch
 		for i in range(self.epochs):
@@ -219,7 +224,7 @@ class word2vec():
 		# h - shape 10x1, e - shape 9x1, dl_dw2 - shape 10x9
 		# x - shape 9x1, w2 - 10x9, e.T - 9x1
 		dl_dw2 = np.dot(h.reshape(-1,1), e.reshape(1,-1))
-		dl_dw1 = np.outer(x, np.dot(self.w2, e.T))
+		dl_dw1 = np.dot(np.array(x).reshape(-1,1), np.dot(self.w2, e.T).reshape(1,-1))
 		########################################
 		# print('Delta for w2', dl_dw2)			#
 		# print('Hidden layer', h)				#
@@ -265,7 +270,7 @@ w2v = word2vec()
 training_data = w2v.generate_training_data(settings, corpus)
 
 w2v.train(training_data)
-print(w2v.word_vec("machine"))
-print(w2v.word_vec("fun"))
-print(w2v.word_vec("and"))
-# w2v.vec_sim("machine",3)
+# print(w2v.word_vec("machine"))
+# print(w2v.word_vec("fun"))
+# print(w2v.word_vec("and"))
+w2v.vec_sim("matrix",5)
