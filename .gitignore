@@ -3,3 +3,6 @@ data/
 venv/
 *.exe
 *.o
+horror_classify
+accident_classify
+data_preparation.py
