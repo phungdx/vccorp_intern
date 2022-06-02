@@ -8,9 +8,9 @@ int minimumDist(int dist[], bool Tset[])
 {
 	int min = INT_MAX, index;
               
-	for(int i = 0; i < 6; i++) 
+	for(int i = 0; i < 6; i++)
 	{
-		if(Tset[i] == false && dist[i] <= min)      
+		if(Tset[i] == false && dist[i] <= min)     
 		{
 			min = dist[i];
 			index = i;
@@ -30,7 +30,7 @@ void Dijkstra(int graph[6][6], int src) // adjacency matrix used is 6x6
 	for(int i = 0; i < 6; i++)
 	{
 		dist[i] = INT_MAX;
-		Tset[i] = false;	
+		Tset[i] = false;
 	}
 	
 	dist[src] = 0;   // Source vertex distance is set to zero.
