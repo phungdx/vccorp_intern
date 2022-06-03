@@ -370,10 +370,42 @@ def basic_filters(type = "gaussian"):
 	plt.show()
 
 
-def edge_finding_filters(type=""):
-	if(type == 'sobel'):
-		pass
+def edge_finding_filters():
+	img = cv2.imread('dog_color.jpeg',0)
 
-	elif(type == 'laplace'):
-		pass
+	laplacian = cv2.Laplacian(img,cv2.CV_64F)
+	sobelx = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)
+	sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5)
+
+	plt.subplot(2,2,1),plt.imshow(img,cmap = 'gray')
+	plt.title('Original'), plt.xticks([]), plt.yticks([])
+
+	plt.subplot(2,2,2),plt.imshow(laplacian,cmap = 'gray')
+	plt.title('Laplacian'), plt.xticks([]), plt.yticks([])
+
+	plt.subplot(2,2,3),plt.imshow(sobelx,cmap = 'gray')
+	plt.title('Sobel X'), plt.xticks([]), plt.yticks([])
+
+	plt.subplot(2,2,4),plt.imshow(sobely,cmap = 'gray')
+	plt.title('Sobel Y'), plt.xticks([]), plt.yticks([])
+
+	plt.show()
+
+
+def dilation_erosion():
+	img = cv2.imread('forest.jpeg')
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+	kernel = np.ones((5,5), np.uint8)
+	img_erosion = cv2.erode(img, kernel, iterations=1)  
+	img_dilation = cv2.dilate(img, kernel, iterations=1)
+	plt.subplot(221)
+	plt.imshow(img_erosion)
+	plt.subplot(222)
+	plt.imshow(img_dilation)
+	plt.subplot(223)
+	plt.imshow(img_erosion)
+	plt.show()
+
+dilation_erosion()
+
 
