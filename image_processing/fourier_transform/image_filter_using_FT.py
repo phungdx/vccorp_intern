@@ -63,6 +63,8 @@ r_out = 80
 r_in = 10
 center = [crow, ccol]
 x, y = np.ogrid[:rows, :cols]
+print(x)
+print(y)
 mask_area = np.logical_and(((x - center[0]) ** 2 + (y - center[1]) ** 2 >= r_in ** 2),
                            ((x - center[0]) ** 2 + (y - center[1]) ** 2 <= r_out ** 2))
 mask[mask_area] = 1
