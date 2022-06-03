@@ -42,6 +42,7 @@ def gamma_correction():
     	# Apply gamma correction.
 		gamma_transformation = np.array(255*(img / 255) ** gamma, dtype = 'uint8')
 		cv2.imwrite('gamma_transformed'+str(gamma)+'.jpg', gamma_transformation)
+
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 
@@ -74,7 +75,7 @@ def Contrast_stretch():
 	cv2.imwrite('contrast.jpg', contrast)
 
 
-def grey_slicing(img):
+def grey_slicing():
 	#  Img is a grey scale image
 	img = cv2.imread('dog_color.jpeg', 0)
 
@@ -119,9 +120,10 @@ def padding(img):
 	return image
 
 
-def avg_neighbor(img):
+def avg_neighbor():
 	# Creating a copy for traversing original values and updating in new matrix
 
+	img = cv2.imread('dog_color.jpeg')
 	padded_img = padding(img)
 	img2 = padded_img.copy()
 	for i in range(2, 258):
@@ -145,7 +147,8 @@ def avg_neighbor(img):
 	cv2.destroyAllWindows()
 
 
-def minimum_neighbor(img):
+def minimum_neighbor():
+	img = cv2.imread('dog_color.jpeg')
 	padded_img = padding(img)
 	# Creating a copy for traversing original values and updating in new matrix
 	img2 = padded_img.copy()
@@ -406,6 +409,6 @@ def dilation_erosion():
 	plt.imshow(img_erosion)
 	plt.show()
 
-dilation_erosion()
 
-
+if __name__ == '__main__':
+	gamma_correction()
