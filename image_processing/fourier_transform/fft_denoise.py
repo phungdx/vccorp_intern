@@ -5,7 +5,7 @@ import os
 plt.rcParams['figure.figsize'] = [16, 16]
 plt.rcParams.update({'font.size': 18})
 
-A = imread(os.path.join('D:\\Workspace\\intern\\vccorp\\image_processing\\point_operators\\dog_color.jpeg'))
+A = imread(os.path.join('D:\\Workspace\\intern\\vccorp\\image_processing\\point_operators\\forest.jpeg'))
 B = np.mean(A, -1); # Convert RGB to grayscale
 # B = A
 

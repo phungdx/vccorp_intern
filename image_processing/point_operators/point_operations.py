@@ -51,13 +51,13 @@ def Contrast_stretch():
 
 	def Contrast_stretch_(p, r1, s1, r2, s2):
 
-	    if (0 <= p and p <= r1):
-	        equation = (s1 / r1) * p
-	    elif (r1 < p and p <= r2):
-	        equation = ((s2 - s1) / (r2 - r1)) * (p - r1) + s1
-	    else:
-	        equation = ((255 - s2) / (255 - r2)) * (p - r2) + s2
-	    return equation
+		if (0 <= p and p <= r1):
+			equation = (s1 / r1) * p
+		elif (r1 < p and p <= r2):
+			equation = ((s2 - s1) / (r2 - r1)) * (p - r1) + s1
+		else:
+			equation = ((255 - s2) / (255 - r2)) * (p - r2) + s2
+		return equation
 
 	img = cv2.imread('dog_color.jpeg')
 
@@ -92,11 +92,11 @@ def grey_slicing():
 	# Loop over the input image and if pixel value lies in desired range set it to 255 
 	# otherwise set it to desired value
 	for i in range(row):
-	    for j in range(column):
-	        if img[i,j] > min_range and img[i,j] < max_range: 
-	            img1[i,j] = 255
-	        else: 
-	            img1[i,j] = img[i-1, j-1] 
+		for j in range(column):
+			if img[i,j] > min_range and img[i,j] < max_range: 
+				img1[i,j] = 255
+			else: 
+				img1[i,j] = img[i-1, j-1] 
 
 	# cv2.imwrite('Original.jpg', img)
 	cv2.imwrite('slicedimage.jpg', img1)
@@ -127,20 +127,20 @@ def avg_neighbor():
 	padded_img = padding(img)
 	img2 = padded_img.copy()
 	for i in range(2, 258):
-	    for j in range(2, 258):
-	        
-	        # for a 5x5 window sliding
-	        vector_sum = 0
-	        n = 0
-	        # Fetch all neighbours for middle element of a 5x5 matrix
-	        for k in range(i - 2, i + 3):
-	            for l in range(j - 2, j + 3):
-	                n += 1
-	                #Calculate sum of 
-	                vector_sum += padded_img[k, l].astype(int)
-	        #Finding average of neigbours, excluding centre element
-	        vector_mean = (vector_sum - padded_img[i, j]) / (n - 1)
-	        img2[i, j] = vector_mean
+		for j in range(2, 258):
+
+			# for a 5x5 window sliding
+			vector_sum = 0
+			n = 0
+			# Fetch all neighbours for middle element of a 5x5 matrix
+			for k in range(i - 2, i + 3):
+				for l in range(j - 2, j + 3):
+					n += 1
+					#Calculate sum of 
+					vector_sum += padded_img[k, l].astype(int)
+		#Finding average of neigbours, excluding centre element
+		vector_mean = (vector_sum - padded_img[i, j]) / (n - 1)
+		img2[i, j] = vector_mean
 
 	cv2.imwrite('average_neighbor_operation.jpg', img2)
 	cv2.waitKey(0)
@@ -154,16 +154,16 @@ def minimum_neighbor():
 	img2 = padded_img.copy()
 	# Traverse image portions alone
 	for i in range(2,258):
-	    for j in range(2,258):
-	        # for a 5x5 window sliding
-	        neighbors = []
-	        # Fetch all neighbours for middle element of a 5x5 matrix
-	        for k in range(i-2,i+3):
-	            for l in range(j-2,j+3):
-	                neighbors.append(padded_img[k,l])
+		for j in range(2,258):
+			# for a 5x5 window sliding
+			neighbors = []
+			# Fetch all neighbours for middle element of a 5x5 matrix
+			for k in range(i-2,i+3):
+				for l in range(j-2,j+3):
+					neighbors.append(padded_img[k,l])
 
-	        minimum = np.min(neighbors, axis=0)
-	        img2[i, j] = minimum
+			minimum = np.min(neighbors, axis=0)
+			img2[i, j] = minimum
 
 
 	cv2.imwrite('minimum_neighbor_operation.jpg', img2)

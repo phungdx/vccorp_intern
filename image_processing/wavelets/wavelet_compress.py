@@ -33,6 +33,7 @@ for keep in (0.1, 0.05, 0.01, 0.005):
     plt.figure()
     plt.imshow(Arecon.astype('uint8'),cmap='gray')
     plt.axis('off')
+    plt.savefig(f'{keep}.jpg')
     plt.title('keep = ' + str(keep))
 
 plt.show()
