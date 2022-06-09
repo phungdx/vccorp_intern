@@ -135,7 +135,3 @@ def rotation():
 
 
 rotation()
-
-
-
-
