@@ -6,3 +6,4 @@ venv/
 horror_classify
 accident_classify
 data_preparation.py
+__pycache__
