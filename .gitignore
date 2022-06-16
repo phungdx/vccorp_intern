@@ -1,7 +1,7 @@
 data/
 .ipynb_checkpoints
 venv/
-*.exe
+out.exe
 *.o
 horror_classify
 accident_classify
