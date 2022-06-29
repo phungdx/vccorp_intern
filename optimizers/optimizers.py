@@ -156,6 +156,7 @@ if __name__ == "__main__":
     MAX_ITER = 100
     METHOD = "adam"
 
+
     path = "./"
 
     X, y = generate_data()
